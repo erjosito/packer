@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "azure_sub_id": "",
+    "azure_tenant_id": "",
+    "azure_app_id": "",
+    "azure_app_secret": "",
+    "azure_rg": "customimages",
+    "azure_image_name": "ubuntu-custom-image"
+   },
+
+  "builders": [{
+    "type": "azure-arm",
+
+    "tenant_id": "{{user `azure_tenant_id`}}",
+    "subscription_id": "{{user `azure_sub_id`}}",
+    "client_id": "{{user `azure_app_id`}}",
+    "client_secret": "{{user `azure_app_secret`}}",
+
+    "managed_image_resource_group_name": "{{user `azure_rg`}}",
+    "managed_image_name": "{{user `azure_image_name`}}",
+
+    "os_type": "Linux",
+    "image_publisher": "Canonical",
+    "image_offer": "UbuntuServer",
+    "image_sku": "18.04-LTS",
+
+    "azure_tags": {
+        "dept": "Engineering",
+        "task": "Image deployment"
+    },
+
+    "location": "East US",
+    "vm_size": "Standard_DS2_v2"
+  }],
+  "provisioners": [{
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "inline": [
+      "sudo apt-get install apache2 -y",
+      "sudo apt -y install apache2 php7.2 libapache2-mod-php7.2",
+      "sudo systemctl restart apache2",
+      "sudo systemctl enable apache2",
+      "sudo rm /var/www/html/index.html",
+      "sudo apt-get install wget -you",
+      "sudo wget https://raw.githubusercontent.com/erjosito/packer/master/index.php -P /var/www/html/",
+      "sudo wget https://raw.githubusercontent.com/erjosito/packer/master/styles.css -P /var/www/html/",
+      "sudo wget https://raw.githubusercontent.com/erjosito/packer/master/apple-touch-icon.png -P /var/www/html/",
+      "sudo wget https://raw.githubusercontent.com/erjosito/packer/master/favicon.ico -P /var/www/html/",
+      
+      "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+    ],
+    "inline_shebang": "/bin/sh -x",
+    "type": "shell"
+  }]
+}
