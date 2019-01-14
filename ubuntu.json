@@ -4,7 +4,6 @@
     "azure_tenant_id": "",
     "azure_app_id": "",
     "azure_app_secret": "",
-    "azure_object_id": "",
     "azure_rg": "customimages",
     "azure_image_name": "ubuntu-custom-image"
    },
@@ -16,7 +15,6 @@
     "subscription_id": "{{user `azure_sub_id`}}",
     "client_id": "{{user `azure_app_id`}}",
     "client_secret": "{{user `azure_app_secret`}}",
-    "object_id": "{{user `azure_object_id`}}",
 
     "managed_image_resource_group_name": "{{user `azure_rg`}}",
     "managed_image_name": "{{user `azure_image_name`}}",
