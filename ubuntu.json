@@ -5,7 +5,9 @@
     "azure_app_id": "",
     "azure_app_secret": "",
     "azure_rg": "customimages",
-    "azure_image_name": "ubuntu-custom-image"
+    "azure_image_name": "ubuntu-custom-image",
+    "azure_location": "East US",
+    "azure_vm_size": "Standard_DS2_v2"
    },
 
   "builders": [{
@@ -29,8 +31,8 @@
         "task": "Image deployment"
     },
 
-    "location": "East US",
-    "vm_size": "Standard_DS2_v2"
+    "location": "{{user `azure_location`}}",
+    "vm_size": "{{user `azure_vm_size`}}"
   }],
   "provisioners": [{
     "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
