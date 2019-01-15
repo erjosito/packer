@@ -31,8 +31,18 @@
 		<div class="content">
 			<div class="container">
 				<div class="main">
-					<h1><?php echo exec('hostname'); ?></h1>
-					<hr>
+                    <h1>
+                        <?php
+                            echo exec('hostname');
+                            $buildno = exec('cat /var/www/html/buildno.txt 2>/dev/null');
+                            if (empty($buildno)) {
+                                    echo " - Image Build unknown";
+                            } else {
+                                    echo " - Image Build " . $buildno;
+                            }
+                        ?>
+                    </h1>
+                    <hr>
                     <p>Some info about me:</p>
                     <ul>
                     <?php
