@@ -49,7 +49,7 @@
       "sudo wget https://raw.githubusercontent.com/erjosito/packer/master/apple-touch-icon.png -P /var/www/html/",
       "sudo wget https://raw.githubusercontent.com/erjosito/packer/master/favicon.ico -P /var/www/html/",
       "sudo touch /var/www/html/buildno.txt",
-      "sudo sh -c \"echo ${{user `build_number`}} > /var/www/html/buildno.txt\"",
+      "sudo sh -c \"echo {{user `build_number`}} > /var/www/html/buildno.txt\"",
       
       "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
     ],
