@@ -50,7 +50,7 @@
                     <br>
                     <p>Information retrieved out of the public IP:</p>
                     <?php
-                            $cmd = "curl freegeoip.net/json/" . $pip;
+                            $cmd = "curl https://freegeoip.app/json/" . $pip;
                             $locationInfo = shell_exec($cmd);
                             $location = json_decode($locationInfo, true);
                             $country = $location["country_name"];
